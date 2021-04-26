@@ -124,7 +124,7 @@ def main(args: Namespace) -> None:
                             if '<trkpt' in line:
                                 l = line.split('"')
 
-                                lat_lon_data.append([float(l[1]), float(l[3])])
+                                lat_lon_data.append([float(l[3]), float(l[1])])
 
                     else:
                         break
@@ -137,7 +137,7 @@ def main(args: Namespace) -> None:
 
     # crop to bounding box
     lat_bound_min, lat_bound_max, lon_bound_min, lon_bound_max = args.bounds
-
+    print(lat_lon_data[0])
     lat_lon_data = lat_lon_data[np.logical_and(lat_lon_data[:, 0] > lat_bound_min, lat_lon_data[:, 0] < lat_bound_max), :]
     lat_lon_data = lat_lon_data[np.logical_and(lat_lon_data[:, 1] > lon_bound_min, lat_lon_data[:, 1] < lon_bound_max), :]
 
@@ -319,7 +319,7 @@ if __name__ == '__main__':
                         help = 'GPX files glob filter (default: *.gpx)')
     parser.add_argument('--year', nargs = '+', default = [],
                         help = 'GPX files year(s) filter (default: all)')
-    parser.add_argument('--bounds', type = float, nargs = 4, metavar = 'BOUND', default = [-90.0, +90.0, -180.0, +180.0],
+    parser.add_argument('--bounds', type = float, nargs = 4, metavar = 'BOUND', default = [ 42.02112, 42.051202, -88.106180, -88.0772],
                         help = 'heatmap bounding box as lat_min, lat_max, lon_min, lon_max (default: -90 +90 -180 +180)')
     parser.add_argument('--output', default = 'heatmap.png',
                         help = 'heatmap name (default: heatmap.png)')
